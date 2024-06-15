@@ -1,5 +1,3 @@
-#include <iostream>
-
 /*
     class File_Handler for extentions +
     class (functional object) Execution_Engine for execution programm +
@@ -34,10 +32,15 @@
 
     class Operations for defining operations with types
 */
+#include <iostream>
 
-int main(int argc, char** argv) {
-
-
+int main(int argc, char** argv) 
+{
+    if (argc == 1)
+    {
+        std::cerr << "Please get file/files for interpretation" << std::endl;
+        return 0; 
+    }
 
     return 0;
 }
