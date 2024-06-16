@@ -1,13 +1,11 @@
 #ifndef EXECUTION_ENGINE_H
 #define EXECUTION_ENGINE_H
 
-#include      "../FileHandler_/FileHandler.h"
-#include  "../SyntaxChecker_/SyntaxChecker.h"
-
-class                 Syntax_Checker;
-class                    Code_Catter;
-class           Abstract_Syntax_Tree;
-class                  Control_Block;
+#include                "../FileHandler_/FileHandler.h"
+#include            "../SyntaxChecker_/SyntaxChecker.h"
+#include                  "../CodeCatter_/CodeCatter.h"
+#include  "../AbstractSyntaxTree_/AbstractSyntaxTree.h"
+#include              "../ControlBlock_/ControlBlock.h"
 
 class Execution_Engine
 {
