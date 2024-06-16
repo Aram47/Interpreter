@@ -33,14 +33,14 @@
     class Operations for defining operations with types
 */
 #include <iostream>
+#include "./local_main/local_main.h"
 
-int main(int argc, char** argv) 
-{
-    if (argc == 1)
-    {
-        std::cerr << "Please get file/files for interpretation" << std::endl;
-        return 0; 
-    }
+int main(int argc, char** argv) {
+
+    Local_Main __main(argc, argv);
+
+    if (__main())
+        std::cerr << "Programm crashed..." << std::endl;
 
     return 0;
 }
