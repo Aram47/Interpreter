@@ -1,15 +1,15 @@
-#ifndef BOOLEAN_H
-#define BOOLEAN_H
+#ifndef NAN_H
+#define NAN_H
 
 #include "../FundamentalType.h"
 
-class Boolean : public Fundamental_Type
+class Nan : public Fundamental_Type
 {
 private:
-    bool __data;
+    std::string __data;
 public:
-    Boolean();
-    ~Boolean();
+    Nan();
+    ~Nan();
     virtual std::string& __get_data()            override;
     virtual void __set_data(const std::string&)  override;
 };
