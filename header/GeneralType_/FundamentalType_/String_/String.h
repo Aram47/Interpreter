@@ -14,4 +14,4 @@ public:
     virtual void __set_data(const std::string&)  override;
 };
 
-#endif
+#endif // STRING_H

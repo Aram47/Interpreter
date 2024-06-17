@@ -12,4 +12,4 @@ public:
     virtual void __set_data(const std::string&)    = 0;
 };
 
-#endif
+#endif // OBJECT_H

@@ -17,4 +17,4 @@ public:
     std::string __get_type();
 };
 
-#endif
+#endif // GENERAL_TYPE_H

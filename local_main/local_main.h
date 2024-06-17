@@ -12,4 +12,4 @@ public:
     bool operator()();
 };
 
-#endif // UTILITY_H
+#endif // LOCAL_MAIN_H

@@ -16,4 +16,4 @@ public:
     virtual void __set_data(const std::string&)  override;
 };
 
-#endif
+#endif // ARRAY_H
