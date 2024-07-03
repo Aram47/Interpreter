@@ -10,13 +10,13 @@ public:
 public:
     virtual std::pair<std::string, std::string>   operator+   (Base_Type*)   override;
     virtual std::pair<std::string, std::string>   operator-   (Base_Type*)   override;
-    virtual std::pair<std::string, std::string>   operator++  (    int   );
-    virtual std::pair<std::string, std::string>   operator--  (    int   );
-    virtual std::pair<std::string, std::string>   operator++  (          );
-    virtual std::pair<std::string, std::string>   operator--  (          );
-    virtual std::pair<std::string, std::string>   operator*   (Base_Type*);
-    virtual std::pair<std::string, std::string>   operator/   (Base_Type*);
-    virtual std::pair<std::string, std::string>   operator%   (Base_Type*);
+    // virtual std::pair<std::string, std::string>   operator++  (    int   );
+    // virtual std::pair<std::string, std::string>   operator--  (    int   );
+    // virtual std::pair<std::string, std::string>   operator++  (          );
+    // virtual std::pair<std::string, std::string>   operator--  (          );
+    // virtual std::pair<std::string, std::string>   operator*   (Base_Type*);
+    // virtual std::pair<std::string, std::string>   operator/   (Base_Type*);
+    // virtual std::pair<std::string, std::string>   operator%   (Base_Type*);
 };
 
 #endif // NUMBER_H

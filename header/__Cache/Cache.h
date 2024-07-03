@@ -3,8 +3,7 @@
 
 #include <unordered_map>
 #include <string>
-
-class Base_Type;
+#include "../__Types/__Base_Type/Base_Type.h"
 
 class Cache {
     std::unordered_map<std::string, Base_Type*> __cache;
@@ -14,10 +13,9 @@ public:
     Cache(const Cache&) = delete;
     ~Cache();
     static Cache* __get_cahce_instance();
+    static void   __delete_cache_instance();
     void          __load_value (const std::string&, Base_Type*);
     Base_Type*    __get_val (const std::string&);
 };
-
-Cache* Cache::__cache_instance = nullptr;
 
 #endif // CACHE_H

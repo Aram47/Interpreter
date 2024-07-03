@@ -1,4 +1,5 @@
 #include <iostream>
+#include <functional>
 #include <vector>
 #include <fstream>
 
@@ -22,14 +23,16 @@ int main(int argc, char** argv) {
     Parser prs;
     std::string line;
 
-    while (!fs.eof()) try {
-        getline(fs, line);
+    while (getline(fs, line)) try {
+        prs.__withe_space_deleter(line);
         prs.__parse(line);
-    } catch (...) {
+    } catch (std::exception e) {
         std::cerr << "Something is doesn't OK!" << std::endl;
-        prs.~Parser();
+        fs.close();
         return 0;
     }
 
+    fs.close();
+    std::cout << "Ok" << std::endl;
     return 0;
 }

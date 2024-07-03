@@ -1,4 +1,6 @@
-#include "../header/__Cache/Cache.h"
+#include "../../header/__Cache/Cache.h"
+
+Cache* Cache::__cache_instance = nullptr;
 
 Cache::Cache()
 {
@@ -7,12 +9,8 @@ Cache::Cache()
 
 Cache::~Cache()
 {
-
     for (auto key : __cache)
         delete key.second;
-
-    delete __cache_instance;
-    __cache_instance = nullptr;
 }
 
 Cache* Cache::__get_cahce_instance()
@@ -21,6 +19,12 @@ Cache* Cache::__get_cahce_instance()
         __cache_instance = new Cache();
     
     return __cache_instance;
+}
+
+void Cache::__delete_cache_instance()
+{
+    delete __cache_instance;
+    __cache_instance = nullptr;
 }
 
 void Cache::__load_value (const std::string& nm, Base_Type* obj) 
