@@ -13,12 +13,6 @@ Parser::~Parser()
 void Parser::__parse(const std::string& line) 
 {
     this->__tokenized_expression = __tokenizer(line);
-    
-    // for (auto it : __tokenized_expression)
-    //     std::cout << it << std::endl;
-
-    // this->__ast = new AST{__tokenized_expression};
-    // std::pair<std::string, Base_Type*> __res = this->__ast->__get_result();
 }
 
 void Parser::__withe_space_deleter(std::string& line)
@@ -95,7 +89,7 @@ std::vector<std::string> Parser::__tokenizer(const std::string& expression)
             else{ __result.push_back(__res); it += __res.size() - 1;}
 
         } 
-        else if ( // operators
+        else if ( // operators, assignment, scopes
                  ((*it == '+') || 
                   (*it == '-') ||
                   (*it == '*') ||
@@ -112,6 +106,7 @@ std::vector<std::string> Parser::__tokenizer(const std::string& expression)
                   (*it == ';') ||
                   (*it == ',') ||
                   (*it == '.') ||
+                  (*it == ':') ||
                   (*it == '(') ||
                   (*it == ')') ||
                   (*it == '[') ||

@@ -11,12 +11,12 @@ AST::~AST()
     // logic
 }
 
-void AST::__tree_generator(std::vector<std::string> __expression)
-{
+// void AST::__tree_generator(std::vector<std::string> __expression)
+// {
 
-}
+// }
 
-std::pair<std::string, Base_Type*> AST::__get_result()
-{
+// std::pair<std::string, Base_Type*> AST::__get_result()
+// {
 
-}
+// }

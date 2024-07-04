@@ -25,8 +25,8 @@ public:
     AST(AST&&) = delete;
     AST(const std::vector<std::string>&);
     ~AST();
-    void __tree_generator(std::vector<std::string>);
-    std::pair<std::string, Base_Type*> __get_result();
+    // void __tree_generator(std::vector<std::string>);
+    // std::pair<std::string, Base_Type*> __get_result();
 };
 
 #endif // AST_H

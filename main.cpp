@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
     fs.close();
 
     Executer __execute_code;
-    
+
     try {
         __execute_code.__execute(res);
     } catch (std::exception e) {
@@ -45,23 +45,3 @@ int main(int argc, char** argv) {
     std::cout << "Ok" << std::endl;
     return 0;
 }
-
-
-// #include <iostream>
-// #include <string>
-// #include <fstream>
-
-// int main(int argc, char** argv)
-// {
-//     std::ifstream fs (argv[1]);
-//     std::string line;
-//     std::string res;
-//     while (getline(fs, line)) {
-//         res += line;
-//     } 
-    
-//     std::cout << res << std::endl;
-
-//     fs.close();
-//     return 0;
-// }
