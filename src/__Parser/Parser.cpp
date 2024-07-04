@@ -1,40 +1,60 @@
 #include "../../header/__Parser/Parser.h"
 
 Parser::Parser()
-    : __cch{Cache::__get_cahce_instance()}
 {
 
 }
 
 Parser::~Parser()
 {
-    delete __ast;
-    __cch->__delete_cache_instance();
-    __ast = nullptr;
-    __cch = nullptr;
+
 }
 
 void Parser::__parse(const std::string& line) 
 {
-    std::vector<std::string> __tokenized_expression = __tokenizer(line);
-    this->__ast = new AST{__tokenized_expression};
-    std::pair<std::string, Base_Type*> __res = this->__ast->__get_result();
+    this->__tokenized_expression = __tokenizer(line);
+    
+    // for (auto it : __tokenized_expression)
+    //     std::cout << it << std::endl;
+
+    // this->__ast = new AST{__tokenized_expression};
+    // std::pair<std::string, Base_Type*> __res = this->__ast->__get_result();
 }
 
 void Parser::__withe_space_deleter(std::string& line)
 {
-    std::size_t i = 0;
-    std::size_t j = line.size() - 1;
+    auto it = line.begin();
 
-    while (line[j] == ' ')
-        line.erase(j--, 1);
+    while (it != line.end())
+    {
+        bool flag = true;
 
-    while (line[i] == ' ')
-        line.erase(i, 1);
+        if ((*it == '\'') || (*it == '"')) 
+        {
+            if (*it == '\'')
+                it = __string_scope_jumper(it + 1, '"', *it);
+            else
+                it = __string_scope_jumper(it + 1, '\'', *it);
+        } 
+        else if (*it == ' ')
+        {
+            if (*(it + 1) == ' ') {
+                ++it;
+                while (*it == ' ') 
+                    line.erase(it, it + 1);
+            
+                flag = false;
+            }
+        }
+
+        if (flag) ++it;
+    }
 }
 
-
-// #include <iostream>
+std::vector<std::string> Parser::__get_tokenized_expression()
+{
+    return this->__tokenized_expression;
+}
 
 std::vector<std::string> Parser::__tokenizer(const std::string& expression) 
 {
@@ -76,12 +96,28 @@ std::vector<std::string> Parser::__tokenizer(const std::string& expression)
 
         } 
         else if ( // operators
-                 (*it == '+') ||
-                 (*it == '-') || 
-                 (*it == '*') || 
-                 (*it == '/') ||
-                 (*it == '%') ||
-                 (*it == '=')
+                 ((*it == '+') || 
+                  (*it == '-') ||
+                  (*it == '*') ||
+                  (*it == '/') ||
+                  (*it == '%') ||
+                  (*it == '^') ||
+                  (*it == '|') ||
+                  (*it == '&') ||
+                  (*it == '=') ||
+                  (*it == '<') ||
+                  (*it == '>') ||
+                  (*it == '!') ||
+                  (*it == '~') ||
+                  (*it == ';') ||
+                  (*it == ',') ||
+                  (*it == '.') ||
+                  (*it == '(') ||
+                  (*it == ')') ||
+                  (*it == '[') ||
+                  (*it == ']') ||
+                  (*it == '{') ||
+                  (*it == '}'))
                 ) 
         {
 
@@ -92,64 +128,31 @@ std::vector<std::string> Parser::__tokenizer(const std::string& expression)
         } 
         else if ( // string literals
                  (*it == '\'') ||
-                 (*it == '"')  || 
-                 (*it == '`')
+                 (*it == '"')
                 )
         {
 
-            __res = __string_handler(it);
+            __res = __string_handler(it, *it);
             __result.push_back(__res);
             it += __res.size() - 1;
-
-        }
-        else if ( // scope
-                 (*it == '(')
-                )
-        {
-
-            __res = __scope_handler(it);
-            __result.push_back(__res);
-            it += __res.size() - 1;
-
-        } 
-        else if (  // array (scope resolution)
-                 (*it == '[')
-                )
-        {
-
-            __res = __array_scope_resolution_handler(it);
-            __result.push_back(__res);
-            it += __res.size() - 1;
-
-        } 
-        else if ( // object
-                 (*it == '{')
-                )
-        {
-
-            __res = __object_scope_handler(it);
-            __result.push_back(__res);
-            it += __res.size() - 1;
-
-        } 
-        else if ( // comma
-                 (*it == ';') ||
-                 (*it == ',')
-                )
-        {
-
-            __res = *it;
-            __result.push_back(__res);
 
         }
 
         __res.clear();
     }
-    // std::cout << changebl_expression << std::endl;
-    // for (auto it : result)
-    //     std::cout << it << std::endl;
 
     return __result;
+}
+
+std::string::iterator Parser::__string_scope_jumper (string_iter it, char symb, char current)
+{
+    if (*it == current)
+        return it;
+
+    if (*it == symb)
+        it = __string_scope_jumper(it + 1, current, symb);
+
+    return __string_scope_jumper(it + 1, symb, current);
 }
 
 void Parser::__number_literal_handler(string_iter __beg, std::function<void (std::string)> __lmbd)
@@ -199,32 +202,70 @@ std::string Parser::__var_name_handler(string_iter __beg)
 
 std::string Parser::__operator_handler(string_iter __beg)
 {
-    // if (
-    //     (*__beg == '+') || 
-    //     (*__beg == '-')
-    //    ) 
-    // {
-
-    // }
+    std::string __res;
+    if      ( // assignments and boolean conditions
+             ((*__beg == '+')   || 
+             (*__beg == '-')    ||
+             (*__beg == '*')    ||
+             (*__beg == '/')    ||
+             (*__beg == '%')    ||
+             (*__beg == '^')    ||
+             (*__beg == '|')    ||
+             (*__beg == '&')    ||
+             (*__beg == '=')    ||
+             (*__beg == '<')    ||
+             (*__beg == '>')    ||
+             (*__beg == '!'))   &&
+             (*(__beg + 1) == '=')
+            ) 
+    {
+            __res += *__beg;
+            __res += *(__beg + 1);
+            return __res;
+    }
+    else if ( // shift assignment
+             (((*__beg == '<') && (*(__beg + 1) == '<'))  ||
+              ((*__beg == '>') && (*(__beg + 1) == '>'))) &&
+             (((*(__beg + 2) == '=')))
+            )
+    {
+            __res += *__beg;
+            __res += *(__beg + 1);
+            __res += *(__beg + 2);
+            return __res;
+    }
+    else if ( // postfix/prefix minus/plus or left/right shift
+             ((*__beg == '+')  ||
+              (*__beg == '-')  ||
+              (*__beg == '<')  ||
+              (*__beg == '>')) &&
+             (*(__beg) == *(__beg + 1))
+            )
+    {
+            __res += *__beg;
+            __res += *(__beg + 1);
+            return __res;
+    }
+    else if ( // boolean || or &&
+             ((*__beg == '&')  ||
+              (*__beg == '|')) &&
+             ((*__beg) == *(__beg + 1))
+            )
+    {
+            __res += *__beg;
+            __res += *(__beg + 1);
+            return __res;
+    }
     return {*__beg};
 }
 
-// std::string Parser::__string_handler(string_iter __beg)
-// {
-
-// }
-
-// std::string Parser::__scope_handler(string_iter __beg)
-// {
-
-// }
-
-// std::string Parser::__array_scope_resolution_handler(string_iter __beg)
-// {
-
-// }
-
-// std::string Parser::__object_scope_handler(string_iter __beg)
-// {
-
-// }
+std::string Parser::__string_handler(string_iter __beg, const char symb)
+{
+    if (symb == '\'')
+    {
+        std::string __res(__beg, __string_scope_jumper(__beg + 1, '"', *__beg) + 1);
+        return __res;
+    }
+    std::string __res(__beg, __string_scope_jumper(__beg + 1, '\'', *__beg) + 1);
+    return __res;
+}

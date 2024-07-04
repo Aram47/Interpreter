@@ -20,19 +20,48 @@ int main(int argc, char** argv) {
         return 0;
     }
 
-    Parser prs;
     std::string line;
+    std::string res;
 
     while (getline(fs, line)) try {
-        prs.__withe_space_deleter(line);
-        prs.__parse(line);
+        res += line;
+    } catch (std::exception e) {
+        fs.close();
+        return 0;
+    }
+
+    fs.close();
+
+    Executer __execute_code;
+    
+    try {
+        __execute_code.__execute(res);
     } catch (std::exception e) {
         std::cerr << "Something is doesn't OK!" << std::endl;
         fs.close();
         return 0;
     }
 
-    fs.close();
     std::cout << "Ok" << std::endl;
     return 0;
 }
+
+
+// #include <iostream>
+// #include <string>
+// #include <fstream>
+
+// int main(int argc, char** argv)
+// {
+//     std::ifstream fs (argv[1]);
+//     std::string line;
+//     std::string res;
+//     while (getline(fs, line)) {
+//         res += line;
+//     } 
+    
+//     std::cout << res << std::endl;
+
+//     fs.close();
+//     return 0;
+// }
