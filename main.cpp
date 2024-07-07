@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
 
     while (getline(fs, line)) try {
         res += line;
-    } catch (std::exception e) {
+    } catch (... /*std::exception e*/) {
         fs.close();
         return 0;
     }
@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
 
     try {
         __execute_code.__execute(res);
-    } catch (std::exception e) {
+    } catch (... /*std::exception e*/) {
         std::cerr << "Something is doesn't OK!" << std::endl;
         fs.close();
         return 0;
