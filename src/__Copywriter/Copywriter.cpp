@@ -95,21 +95,43 @@ std::vector<std::string>::iterator Copywriter::__brecket_handler(std::vector<std
 }
 
 bool Copywriter::__is_func(std::vector<std::string> __instruction)
-{
-    if (*(__instruction.end() - 1) == ";")
-        return false;
-    
+{   
     auto __beg = __instruction.begin();
 
     if ((__key_words.find(*__beg) != __key_words.end()) && 
         (__key_words.find(*__beg)->second == "func"))
     {
         ++__beg;
-        if ((*__beg == "(" ) || __is_name(*__beg))
+        if (__is_name(*__beg))
         {
-            if (*__beg == "(")
-            {
+            ++__beg;
+            if (*__beg == "(") {
+                int __arguments_scope_count = 0;
+                while (*__beg != ")")
+                {
+                    if (*__beg == "(")
+                        ++__arguments_scope_count;
 
+                    ++__beg;
+                }
+
+                while (__arguments_scope_count)
+                {
+                    if (*__beg == ")")
+                        __arguments_scope_count;
+
+                    ++__beg;
+                }
+
+                ++__beg;
+                if (*__beg == "{")
+                {
+                    __beg = __brecket_handler(__beg);
+                    if (*__beg == "}")
+                    {
+                        return true;
+                    }
+                }
             }
         }
     }
