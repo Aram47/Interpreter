@@ -24,19 +24,26 @@ int main(int argc, char** argv) {
     std::string res;
 
     while (getline(fs, line)) try {
+        for (auto i = line.begin(); i != line.end(); ++i) {
+            if ((i + 1 != line.end()) && (*i == '/' && *(i + 1) == '/'))
+            {
+                line.erase(i, line.end());
+                break;
+            }
+        }
         res += line;
-    } catch (... /*std::exception e*/) {
+    } catch (std::exception e) {
         fs.close();
         return 0;
     }
-
+    // std::cout << res << std::endl;
     fs.close();
 
     Executer __execute_code;
 
     try {
         __execute_code.__execute(res);
-    } catch (... /*std::exception e*/) {
+    } catch (std::exception e) {
         std::cerr << "Something is doesn't OK!" << std::endl;
         fs.close();
         return 0;

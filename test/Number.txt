@@ -1,1 +1,32 @@
-a = 5;
+a = 5; 
+
+b = 7;
+
+c = a + b;
+
+func foo () {
+    k = 7;
+    c = {
+        d : {},
+    };
+};
+
+func foo2 (arg1, arg2) {
+    return arg1 * arg2;
+};
+
+while (true) {
+
+}
+
+func foo3 () {
+
+}
+
+k = func (arg1, arg2) {
+    return arg1 + arg2;
+}
+
+t = 7;
+b = 8;
+j = t + b;

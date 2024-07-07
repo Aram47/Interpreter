@@ -18,7 +18,7 @@ Executer::~Executer()
     __prs = nullptr;
     __cch = nullptr;
 }
-
+#include <iostream>
 void Executer::__execute(std::string& code) 
 {
     __prs->__withe_space_deleter(code);
@@ -26,12 +26,15 @@ void Executer::__execute(std::string& code)
     std::vector<std::string> __tokenized_expression = __prs->__get_tokenized_expression();
     __tokenized_expression = __cpw->__function_hoisting_handler(__tokenized_expression);
 
+    for (auto i : __tokenized_expression)
+        std::cout << i << " ";
 
-    for (auto it = __tokenized_expression.begin(); it != __tokenized_expression.end(); ++it)
-    {
-        std::pair<std::vector<std::string>::iterator, std::vector<std::string>> __instruction = __cpw->__instruction_cutter(it);
-        it = __instruction.first;
+    std::cout << std::endl;
+    // for (auto it = __tokenized_expression.begin(); it != __tokenized_expression.end(); ++it)
+    // {
+    //     std::pair<std::vector<std::string>::iterator, std::vector<std::string>> __instruction = __cpw->__instruction_cutter(it);
+    //     it = __instruction.first;
         
-    }
+    // }
 
 }
