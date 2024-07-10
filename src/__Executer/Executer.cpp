@@ -28,21 +28,15 @@ void Executer::__execute(std::string& code)
     std::vector<std::string> __tokenized_expression = __prs->__get_tokenized_expression();
     __cpw->__double_comments_deleter(__tokenized_expression);
     __tokenized_expression = __cpw->__comma_adder(__tokenized_expression);
+    __tokenized_expression = __cpw->__function_hoisting_handler(__tokenized_expression);
     
-    for (auto i : __tokenized_expression)
-    {
-        if (i == ";")
-            std::cout << i << std::endl;
-        else
-            std::cout << i << " ";
-    }
-
-    // __tokenized_expression = __cpw->__function_hoisting_handler(__tokenized_expression);
-
     // for (auto i : __tokenized_expression)
-    //     std::cout << i << " ";
-
-    // std::cout << std::endl;
+    // {
+    //     if (i == ";")
+    //         std::cout << i << std::endl;
+    //     else
+    //         std::cout << i << " ";
+    // }
 
     // for (auto it = __tokenized_expression.begin(); it != __tokenized_expression.end(); ++it)
     // {

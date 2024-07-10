@@ -24,7 +24,6 @@ Copywriter::__double_comments_deleter(std::vector<std::string>& __code)
     }
 }
 
-
 std::vector<std::string> 
 Copywriter::__comma_adder(std::vector<std::string>& __code)
 {
@@ -171,59 +170,37 @@ Copywriter::__func_handler(vec_str_iter __beg, vec_str_iter __end)
 
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 std::vector<std::string> 
 Copywriter::__function_hoisting_handler(std::vector<std::string>& __code)
 {
     std::vector<std::string> __functions_for_hoisting;
+
     for (auto __it = __code.begin(); __it != __code.end(); ++__it)
     {
-        
+        std::pair<std::vector<std::string>::iterator, std::vector<std::string>>
+        __instruction = __instruction_cutter(__it, __code.end());
+
+        if (__instruction_type_deducetor(__instruction.second) == "Function") {
+            for (auto __i : __instruction.second)
+                __functions_for_hoisting.push_back(__i);
+
+            __it = __code.erase(__it, __instruction.first + 1);
+            --__it;
+        } else {
+            __it = __instruction.first;
+        }
     }
+
+    if (!__functions_for_hoisting.empty()) {
+        for (auto __it : __code)
+            __functions_for_hoisting.push_back(__it);
+
+        return __functions_for_hoisting;
+    }
+
+    return __code;
 }
 
-// i will back
 std::pair<std::vector<std::string>::iterator, std::vector<std::string>> 
 Copywriter::__instruction_cutter(std::vector<std::string>::iterator __beg, std::vector<std::string>::iterator __end)
 {
