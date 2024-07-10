@@ -21,15 +21,27 @@ Executer::~Executer()
 #include <iostream>
 void Executer::__execute(std::string& code) 
 {
+    __cpw->__double_comments_deleter(code);
     __prs->__withe_space_deleter(code);
     __prs->__parse(code);
     std::vector<std::string> __tokenized_expression = __prs->__get_tokenized_expression();
-    __tokenized_expression = __cpw->__function_hoisting_handler(__tokenized_expression);
-
+    __tokenized_expression = __cpw->__comma_adder(__tokenized_expression);
+    
     for (auto i : __tokenized_expression)
-        std::cout << i << " ";
+    {
+        if (i == ";")
+            std::cout << i << std::endl;
+        else
+            std::cout << i << " ";
+    }
 
-    std::cout << std::endl;
+    // __tokenized_expression = __cpw->__function_hoisting_handler(__tokenized_expression);
+
+    // for (auto i : __tokenized_expression)
+    //     std::cout << i << " ";
+
+    // std::cout << std::endl;
+
     // for (auto it = __tokenized_expression.begin(); it != __tokenized_expression.end(); ++it)
     // {
     //     std::pair<std::vector<std::string>::iterator, std::vector<std::string>> __instruction = __cpw->__instruction_cutter(it);
