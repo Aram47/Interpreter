@@ -23,7 +23,7 @@ private:
 private:
     std::vector<std::string>::iterator __brecket_handler(std::vector<std::string>::iterator);
 public:
-    void __double_comments_deleter(std::string&);
+    void __double_comments_deleter(std::vector<std::string>&);
     std::vector<std::string> __comma_adder(std::vector<std::string>&);
     std::vector<std::string> __function_hoisting_handler(std::vector<std::string>&);
     std::pair<std::vector<std::string>::iterator, std::vector<std::string>> __instruction_cutter(std::vector<std::string>::iterator,std::vector<std::string>::iterator);

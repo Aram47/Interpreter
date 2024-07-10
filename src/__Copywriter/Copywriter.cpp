@@ -2,16 +2,24 @@
 #include <iostream>
 
 void 
-Copywriter::__double_comments_deleter(std::string& __code)
+Copywriter::__double_comments_deleter(std::vector<std::string>& __code)
 {
     for (auto __it = __code.begin(); __it != __code.end(); ++__it)
     {
-        if (*__it == '/' && *(__it + 1) == '*') {
-            auto __runer = __it;
-            while (*__runer != '*' && *(__runer + 1) != '/')
-                ++__runer;
+        if (__it + 1 != __code.end()) {
+            if (*__it == "/" && *(__it + 1) == "*") {
+                auto __runer = __it;
+                while (true)
+                {
+                    if ((*__runer == "*") && (*(__runer + 1) == "/"))
+                        break;
 
-            __it = __code.erase(__it, __runer + 2);
+                    ++__runer;
+                }
+                ++__runer;
+                __it = __code.erase(__it, __runer + 1);
+                --__it;
+            }
         }
     }
 }

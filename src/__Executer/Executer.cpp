@@ -13,18 +13,20 @@ Executer::~Executer()
 {
     delete __ast;
     delete __prs;
+    delete __cpw;
     __cch->__delete_cache_instance();
     __ast = nullptr;
     __prs = nullptr;
+    __cpw = nullptr;
     __cch = nullptr;
 }
 #include <iostream>
 void Executer::__execute(std::string& code) 
 {
-    __cpw->__double_comments_deleter(code);
     __prs->__withe_space_deleter(code);
     __prs->__parse(code);
     std::vector<std::string> __tokenized_expression = __prs->__get_tokenized_expression();
+    __cpw->__double_comments_deleter(__tokenized_expression);
     __tokenized_expression = __cpw->__comma_adder(__tokenized_expression);
     
     for (auto i : __tokenized_expression)
