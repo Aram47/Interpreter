@@ -1,0 +1,22 @@
+x = 5;
+
+if (true && true) {
+
+} else if (false && false) {
+
+} else {
+
+}
+
+func foo (__some_obj, __some_obj_sec)
+{
+    return __some_obj + __some_obj_sec;
+}
+
+func foo2() {
+
+}
+
+func foo3 () {
+
+};

@@ -29,7 +29,7 @@ void Executer::__execute(std::string& code)
     __cpw->__double_comments_deleter(__tokenized_expression);
     __tokenized_expression = __cpw->__comma_adder(__tokenized_expression);
     __tokenized_expression = __cpw->__function_hoisting_handler(__tokenized_expression);
-    
+
     // for (auto i : __tokenized_expression)
     // {
     //     if (i == ";")

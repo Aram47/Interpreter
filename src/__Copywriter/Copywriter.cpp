@@ -2,7 +2,7 @@
 #include <iostream>
 
 void 
-Copywriter::__double_comments_deleter(std::vector<std::string>& __code)
+Copywriter::__double_comments_deleter(vec_str& __code)
 {
     for (auto __it = __code.begin(); __it != __code.end(); ++__it)
     {
@@ -25,7 +25,7 @@ Copywriter::__double_comments_deleter(std::vector<std::string>& __code)
 }
 
 std::vector<std::string> 
-Copywriter::__comma_adder(std::vector<std::string>& __code)
+Copywriter::__comma_adder(vec_str& __code)
 {
 
     for (auto __it = __code.begin(); __it != __code.end(); ++__it)
@@ -167,11 +167,11 @@ Copywriter::__func_handler(vec_str_iter __beg, vec_str_iter __end)
 // std::vector<std::string>::iterator 
 // Copywriter::__class_handler(std::vector<std::string>::iterator)
 // {
-
+//
 // }
 
 std::vector<std::string> 
-Copywriter::__function_hoisting_handler(std::vector<std::string>& __code)
+Copywriter::__function_hoisting_handler(vec_str& __code)
 {
     std::vector<std::string> __functions_for_hoisting;
 
@@ -191,7 +191,8 @@ Copywriter::__function_hoisting_handler(std::vector<std::string>& __code)
         }
     }
 
-    if (!__functions_for_hoisting.empty()) {
+    if (!__functions_for_hoisting.empty()) 
+    {
         for (auto __it : __code)
             __functions_for_hoisting.push_back(__it);
 
@@ -202,13 +203,40 @@ Copywriter::__function_hoisting_handler(std::vector<std::string>& __code)
 }
 
 std::pair<std::vector<std::string>::iterator, std::vector<std::string>> 
-Copywriter::__instruction_cutter(std::vector<std::string>::iterator __beg, std::vector<std::string>::iterator __end)
+Copywriter::__instruction_cutter(vec_str_iter __beg, vec_str_iter __end)
 {
+    std::vector<std::string> __instruction;
 
+    while (*__beg != ";" && __beg != __end)
+    {
+        if (*__beg == "(" || *__beg == "{" || *__beg == "[")
+        {
+            auto __it = __brecket_handler(__beg);
+
+            std::vector<std::string> temp(__beg, __it + 1);
+
+            for (auto i : temp)
+                __instruction.push_back(i);
+
+            __beg = __it + 1;
+        } 
+        else
+        {
+            __instruction.push_back(*__beg);
+            ++__beg;
+        }
+    }
+    if (*__beg == ";")
+        __instruction.push_back(";");
+
+    return std::pair<std::vector<std::string>::iterator, std::vector<std::string>> (
+        __beg,
+        __instruction
+    );
 }
 
 std::string 
-Copywriter::__instruction_type_deducetor(std::vector<std::string> __instruction)
+Copywriter::__instruction_type_deducetor(vec_str __instruction)
 {
     if (__is_func(__instruction))
         return "Function";
@@ -217,7 +245,7 @@ Copywriter::__instruction_type_deducetor(std::vector<std::string> __instruction)
 }
 
 std::vector<std::string>::iterator 
-Copywriter::__brecket_handler(std::vector<std::string>::iterator __beg)
+Copywriter::__brecket_handler(vec_str_iter __beg)
 {
     int __brecket_count = 0;
     std::string __open_scp = *__beg;
@@ -251,45 +279,28 @@ Copywriter::__brecket_handler(std::vector<std::string>::iterator __beg)
 }
 
 bool 
-Copywriter::__is_func(std::vector<std::string> __instruction)
+Copywriter::__is_func(vec_str __instruction)
 {   
-    auto __beg = __instruction.begin();
-
-    if ((__key_words.find(*__beg) != __key_words.end()) && 
-        (__key_words.find(*__beg)->second == "func"))
+    if (__instruction[0] == "func" && __is_name(__instruction[1]))
     {
-        ++__beg;
-        if (__is_name(*__beg))
+        auto __it = __instruction.begin();
+        __it += 2;
+        if (*__it == "(")
         {
-            ++__beg;
-            if (*__beg == "(") {
-                int __arguments_scope_count = 0;
-                while (*__beg != ")")
+            __it = __brecket_handler(__it);
+            ++__it;
+            if (*__it == "{")
+            {
+                // std::cout << *__it << std::endl;
+                __it = __brecket_handler(__it);
+
+                if (*(__it + 1) == ";")
                 {
-                    if (*__beg == "(")
-                        ++__arguments_scope_count;
-
-                    ++__beg;
-                }
-
-                while (__arguments_scope_count)
-                {
-                    if (*__beg == ")")
-                        --__arguments_scope_count;
-
-                    ++__beg;
-                }
-
-                if (*__beg == "{")
-                {
-                    __beg = __brecket_handler(__beg);
-
                     return true;
                 }
             }
         }
     }
-
     return false;
 }
 
