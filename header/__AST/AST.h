@@ -4,7 +4,8 @@
 #include <vector>
 #include <string>
 #include "../__Types/__Base_Type/Base_Type.h"
-#include "../__Types/__Number/Number.h"
+#include "../__Types/__Fundamental_Type/Fundamental_Type.h"
+#include "../__Types/__Fundamental_Type/__Number/Number.h"
 #include "../__Cache/Cache.h"
 
 class AST

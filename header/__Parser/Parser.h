@@ -5,7 +5,7 @@
 #include <string>
 #include <functional>
 #include "../__Types/__Base_Type/Base_Type.h"
-#include "../__Types/__Number/Number.h"
+#include "../__Types/__Fundamental_Type/__Number/Number.h"
 #include "../__Cache/Cache.h"
 #include "../__AST/AST.h"
 

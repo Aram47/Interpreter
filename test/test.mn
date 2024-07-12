@@ -1,0 +1,32 @@
+x = 5;
+
+const y = [1,"Aram",func () {return "something";},[1,2,"str"], {key : "value", "key2" : func () {return this.key;}}];
+
+if (true && true) {
+
+} else if (false && false) {
+
+} else {
+
+}
+
+func foo (__some_obj, __some_obj_sec)
+{
+    return __some_obj + __some_obj_sec;
+}
+
+func foo2() {
+
+}
+
+func foo3 () {
+
+};
+
+class Base extends Derived {
+    "key"  : value,
+    "key2" : func () {
+
+    },
+    key3 : [1,2,3,{a : 8}, func () { return 5;}],
+};

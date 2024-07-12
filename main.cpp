@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
         fs.close();
         return 0;
     }
-    // std::cout << res << std::endl;
+    
     fs.close();
 
     Executer __execute_code;

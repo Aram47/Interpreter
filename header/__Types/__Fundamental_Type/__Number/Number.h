@@ -2,7 +2,7 @@
 #define NUMBER_H
 
 #include <string>
-#include "../__Fundamental_Type/Fundamental_Type.h"
+#include "../Fundamental_Type.h"
 
 class Number : public Fundamental_Type {
 public:

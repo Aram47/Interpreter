@@ -291,7 +291,6 @@ Copywriter::__is_func(vec_str __instruction)
             ++__it;
             if (*__it == "{")
             {
-                // std::cout << *__it << std::endl;
                 __it = __brecket_handler(__it);
 
                 if (*(__it + 1) == ";")
