@@ -4,10 +4,8 @@
 #include <vector>
 #include <string>
 #include <functional>
-#include "../__Types/__Base_Type/Base_Type.h"
-#include "../__Types/__Fundamental_Type/__Number/Number.h"
+#include "../__Types/Types.h"
 #include "../__Cache/Cache.h"
-#include "../__AST/AST.h"
 
 class Parser {
     using string_iter = std::string::iterator;
