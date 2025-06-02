@@ -3,7 +3,7 @@ TARGET = Interpreter
 
 # Compiller and flags
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -Include
+CXXFLAGS = -std=c++17 -Wall -Wextra -I$(INCLUDE_DIR)
 # CXXFLAGS = -std=c++17 -Wall -Wextra -Werror -Include
 
 # Folder for source files
@@ -22,6 +22,7 @@ $(TARGET): $(OBJECTS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 # Compile .cpp to .o
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Clean
